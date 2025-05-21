@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<?import javafx.collections.FXCollections?>
+
+
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycreche.controllers.ChildController" prefHeight="600">
+    <BorderPane>
+        <padding><Insets top="20" right="30" bottom="30" left="30"/></padding>
+        
+        <top>
+            <VBox alignment="CENTER" spacing="5">
+                <Label text="Child Registration Form" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2e86c1;" />
+                <Label text="Please fill in all required fields (*)" style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;" />
+                <Separator>
+                    <VBox.margin>
+                        <Insets top="10" bottom="20" />
+                    </VBox.margin>
+                </Separator>
+            </VBox>
+        </top>
+        
+        <center>
+            <VBox spacing="25">
+                <!-- Child Information Section -->
+                <TitledPane text="Child Information" expanded="true" style="-fx-font-weight: bold;">
+                    <GridPane hgap="15" vgap="10">
+                        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                        
+                        <!-- Row 0 -->
+                        <Label text="Full Name *" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                        <TextField fx:id="fullNameField" promptText="Enter child's full name" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                        
+                        <!-- Row 1 -->
+                        <Label text="Date of Birth *" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                        <DatePicker fx:id="birthDatePicker" promptText="Select date" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                        
+                        <Label text="Gender" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+                        <HBox spacing="10" GridPane.rowIndex="1" GridPane.columnIndex="3">
+                            <RadioButton fx:id="maleRadio" text="Male">
+                                <toggleGroup>
+                                    <ToggleGroup fx:id="genderGroup" />
+                                </toggleGroup>
+                            </RadioButton>
+                            <RadioButton fx:id="femaleRadio" text="Female" toggleGroup="$genderGroup" />
+                        </HBox>
+                        
+                        <!-- Row 2 -->
+                        <Label text="Enrollment Date *" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                        <DatePicker fx:id="enrollmentDatePicker" promptText="Select date" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                        
+                        <Label text="Group/Class" GridPane.rowIndex="2" GridPane.columnIndex="2" />
+                        <ComboBox fx:id="groupComboBox" promptText="Select group" GridPane.rowIndex="2" GridPane.columnIndex="3" />
+                        
+                        <!-- Row 3 -->
+                        <Label text="Allergies" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.valignment="TOP">
+                            <GridPane.margin>
+                                <Insets top="5" />
+                            </GridPane.margin>
+                        </Label>
+                        <TextArea fx:id="allergiesArea" promptText="List any allergies or write 'None'" prefRowCount="2" wrapText="true" 
+                                  GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                        
+                        <!-- Row 4 -->
+                        <Label text="Medical Notes" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.valignment="TOP">
+                            <GridPane.margin>
+                                <Insets top="5" />
+                            </GridPane.margin>
+                        </Label>
+                        <TextArea fx:id="medicalNotesArea" promptText="Any medical conditions or special needs" prefRowCount="3" wrapText="true" 
+                                  GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                        
+                        <!-- Row 5 -->
+                        <Label text="Diet Restrictions" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+                        <TextField fx:id="dietField" promptText="Special diet requirements" 
+                                   GridPane.rowIndex="5" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                    </GridPane>
+                </TitledPane>
+                
+                <!-- Parent/Guardian Information Section -->
+                <TitledPane text="Parent/Guardian Information" expanded="true" style="-fx-font-weight: bold;">
+                    <GridPane hgap="15" vgap="10">
+                        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                        
+                        <!-- Row 0 -->
+                        <Label text="Primary Contact *" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                        <TextField fx:id="primaryContactNameField" promptText="Full name" 
+                                   GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                        
+                        <!-- Row 1 -->
+                        <Label text="Relationship *" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                        <ComboBox fx:id="relationshipComboBox" promptText="Select relationship" 
+                         GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        
+                        <Label text="Phone Number *" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+                        <TextField fx:id="phoneField" promptText="Phone number" 
+                                   GridPane.rowIndex="1" GridPane.columnIndex="3" />
+                        
+                        <!-- Row 2 -->
+                        <Label text="Email" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                        <TextField fx:id="emailField" promptText="Email address" 
+                                   GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                        
+                        <!-- Row 3 -->
+                        <Label text="Address *" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.valignment="TOP">
+                            <GridPane.margin>
+                                <Insets top="5" />
+                            </GridPane.margin>
+                        </Label>
+                        <TextArea fx:id="addressArea" promptText="Full address" prefRowCount="2" wrapText="true" 
+                                  GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                        
+                        <!-- Row 4 -->
+                        <Label text="Emergency Contact" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+                        <TextField fx:id="emergencyContactField" promptText="Name and phone number" 
+                                   GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                    </GridPane>
+                </TitledPane>
+                
+                <!-- Additional Information Section -->
+                <TitledPane text="Additional Information" expanded="false" style="-fx-font-weight: bold;">
+                    <GridPane hgap="15" vgap="10">
+                        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+                        
+                        <!-- Row 0 -->
+                        <Label text="Authorized Pickup" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.valignment="TOP">
+                            <GridPane.margin>
+                                <Insets top="5" />
+                            </GridPane.margin>
+                        </Label>
+                        <TextArea fx:id="pickupArea" promptText="Names of people authorized to pick up the child" prefRowCount="2" wrapText="true" 
+                                  GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                        
+                        <!-- Row 1 -->
+                        <Label text="Special Instructions" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.valignment="TOP">
+                            <GridPane.margin>
+                                <Insets top="5" />
+                            </GridPane.margin>
+                        </Label>
+                        <TextArea fx:id="instructionsArea" promptText="Any special instructions or notes" prefRowCount="3" wrapText="true" 
+                                  GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                        
+                        <!-- Row 2 -->
+                        <Label text="Photo Permission" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                        <CheckBox fx:id="photoPermissionCheck" text="Allow photos of child for internal use" 
+                                  GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3" />
+                    </GridPane>
+                </TitledPane>
+            </VBox>
+        </center>
+        
+        <bottom>
+    <VBox fx:id="bottom" spacing="10" alignment="CENTER">
+           <padding><Insets top="20" right="0" bottom="0" left="0"/></padding>
+            <HBox spacing="15" alignment="CENTER">
+                  <Button fx:id="modifyButton" text="Modify" onAction="#handleModify"
+                    style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-weight: bold;"
+                    prefWidth="150" prefHeight="40" />
+
+            <Button fx:id="saveButton" text="Save" onAction="#handleSave"
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;"
+                    prefWidth="150" prefHeight="40" visible="false" managed="false" />
+            <Label fx:id="statusLabel" text="" />
+          </HBox>
+     </VBox>
+    </bottom>
+
+    </BorderPane>
+</ScrollPane>

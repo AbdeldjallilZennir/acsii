@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.input.KeyCodeCombination?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.mycreche.controllers.ChildListController"
+            prefWidth="800" prefHeight="600">
+    
+    <top>
+        <VBox spacing="15" style="-fx-padding: 20 20 10 20;">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Registered Children" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2e86c1;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <TextField fx:id="searchField" promptText="Search by name..." prefWidth="250" />
+            </HBox>
+            
+            <Separator />
+        </VBox>
+    </top>
+    
+    <center>
+        <TableView fx:id="childTable" prefHeight="500" prefWidth="750" style="-fx-padding: 0 20 0 20;">
+            <columns>
+                <TableColumn fx:id="nameCol" text="Full Name" prefWidth="180"/>
+                <TableColumn fx:id="birthCol" text="Birth Date" prefWidth="100"/>
+                <TableColumn fx:id="genderCol" text="Gender" prefWidth="80"/>
+                <TableColumn fx:id="groupCol" text="Group" prefWidth="100"/>
+                <TableColumn fx:id="contactCol" text="Primary Contact" prefWidth="180"/>
+                <TableColumn fx:id="phoneCol" text="Phone" prefWidth="100"/>
+            </columns>
+            <placeholder>
+                <Label text="No children registered yet" style="-fx-text-fill: #7f8c8d;" />
+            </placeholder>
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem text="View Details" onAction="#handleViewDetails">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="ENTER" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem text="Edit Child" onAction="#handleEditChild" />
+                        <SeparatorMenuItem />
+                        <MenuItem text="Delete Child" onAction="#handleDeleteChild" />
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TableView>
+    </center>
+    
+    <bottom>
+        <HBox  alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 15 20 20 20 20;">
+            <Label fx:id="totalLabel" text="Total: 0 children" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="addButton" text="Add New Child" onAction="#handleAddChild" 
+                    style="-fx-background-color: #2ecc71; -fx-text-fill: white;" />
+            <Button fx:id="viewButton" text="View Details" onAction="#handleViewDetails" 
+                    style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+            <Button fx:id="deleteButton" text="Delete" onAction="#handleDeleteChild" 
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
+            <Button fx:id="pendingRequestsButton" text="Pending Requests" onAction="#handlePendingRequests"
+                    style="-fx-background-color: rgb(204, 46, 143); -fx-text-fill: white;" />
+
+        </HBox>
+    </bottom>
+</BorderPane>

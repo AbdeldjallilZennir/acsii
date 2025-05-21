@@ -1,0 +1,32 @@
+/* Apply this CSS by adding: getScene().getStylesheets().add(getClass().getResource("/styles.css").toExternalForm()); */
+
+.root {
+    -fx-background-color: linear-gradient(to bottom, #f8bbd0, #e1bee7);
+}
+
+.button:hover {
+    -fx-background-color: #d81b60;
+    -fx-cursor: hand;
+    cursor: pointer; /* This won't affect JavaFX but would work in web contexts */
+}
+
+.button:pressed {
+    -fx-background-color: #c2185b;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #e91e63;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #d81b60;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    cursor: pointer; /* This won't affect JavaFX but would work in web contexts */
+}
+
+.hyperlink:visited {
+    -fx-text-fill: #e91e63;
+}

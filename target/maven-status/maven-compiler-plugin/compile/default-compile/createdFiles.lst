@@ -1,0 +1,8 @@
+com\mycreche\controllers\ChildListController.class
+com\mycreche\App.class
+com\mycreche\models\User.class
+com\mycreche\Main.class
+com\mycreche\controllers\ChildController.class
+com\mycreche\models\Child.class
+com\mycreche\utils\Database.class
+com\mycreche\controllers\LoginController.class
