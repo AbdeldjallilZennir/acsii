@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.mycreche.controllers.ParentDashboardController"
+            style="-fx-background-color: linear-gradient(to bottom, #74b9ff 0%, #0984e3 100%);">
+
+    <!-- Top Bar -->
+    <top>
+        <HBox spacing="15" alignment="CENTER_LEFT"
+              style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 0 0 15 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 2);">
+            <padding>
+                <Insets top="20" right="25" bottom="20" left="25"/>
+            </padding>
+            
+            <VBox spacing="2">
+                <Label text="Parent Dashboard" 
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+                <Label text="Monitor your child's daily activities" 
+                       style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-font-style: italic;"/>
+            </VBox>
+            
+            <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
+            
+            <Button text="Add Child" onAction="#handleAddChild"
+                    style="-fx-background-color: #00b894; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 20; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0, 184, 148, 0.4), 6, 0, 0, 2);">
+                <cursor>
+                    <javafx.scene.Cursor fx:constant="HAND"/>
+                </cursor>
+            </Button>
+        </HBox>
+    </top>
+
+    <!-- Left Panel: Child Selector -->
+    <left>
+        <ScrollPane fitToWidth="true" fitToHeight="true" 
+                   style="-fx-background-color: transparent; -fx-background: transparent;"
+                   hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+            
+            <VBox spacing="15" prefWidth="280"
+                  style="-fx-background-color: rgba(255, 255, 255, 0.9); -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                
+                <VBox spacing="8">
+                    <Label text="Select Child" 
+                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                    <ComboBox fx:id="childComboBox" onAction="#onChildSelected"
+                             style="-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10; -fx-font-size: 13px;"
+                             prefWidth="240"/>
+                </VBox>
+                
+                <VBox spacing="8">
+                    <Label text="Child Information" 
+                           style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #34495e;"/>
+                    <TextArea fx:id="childInfoArea" prefHeight="200" editable="false" wrapText="true"
+                             style="-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 12px; -fx-text-fill: #495057;"
+                             prefWidth="240"/>
+                </VBox>
+                
+                <!-- Quick Stats -->
+                <VBox spacing="10">
+                    <Label text="Quick Stats" 
+                           style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #34495e;"/>
+                    
+                    <HBox spacing="10">
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #e8f5e8; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="😊" style="-fx-font-size: 20px;"/>
+                            <Label text="Happy Days" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+                            <Label text="12" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+                        </VBox>
+                        
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #fff3cd; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="🍽️" style="-fx-font-size: 20px;"/>
+                            <Label text="Meals" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #f39c12;"/>
+                            <Label text="45" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #f39c12;"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </left>
+
+    <!-- Center Panel: Daily Reports Table -->
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" 
+                   style="-fx-background-color: transparent; -fx-background: transparent;"
+                   hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
+            
+            <VBox spacing="15">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                
+                <VBox spacing="12"
+                      style="-fx-background-color: rgba(255, 255, 255, 0.95); -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="📊" style="-fx-font-size: 20px;"/>
+                        <Label text="Daily Reports" 
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label text="Last 30 days" 
+                               style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-background-color: #f8f9fa; -fx-background-radius: 12; -fx-padding: 4 8;"/>
+                    </HBox>
+                    
+                    <TableView fx:id="reportTable" prefHeight="400"
+                              style="-fx-background-color: transparent; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8;">
+
+                        <columns>
+                            <TableColumn fx:id="colDate" text="Date" prefWidth="100"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colMood" text="Mood" prefWidth="80"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colMeals" text="Meals" prefWidth="80"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colSleep" text="Sleep" prefWidth="80"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colActivities" text="Activities" prefWidth="120"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colSeen" text="Seen" prefWidth="80"
+                                        style="-fx-alignment: CENTER;"/>
+                        </columns>
+
+                    </TableView>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Bottom Panel: Buttons -->
+    <bottom>
+        <HBox spacing="15" alignment="CENTER_RIGHT"
+              style="-fx-background-color: rgba(255, 255, 255, 0.9); -fx-background-radius: 15 15 0 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, -2);">
+            <padding>
+                <Insets top="15" right="25" bottom="15" left="25"/>
+            </padding>
+            
+            <Button text="📄 Export Reports" 
+                    style="-fx-background-color: #6c5ce7; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: 500; -fx-background-radius: 8; -fx-padding: 10 16; -fx-cursor: hand;">
+                <cursor>
+                    <javafx.scene.Cursor fx:constant="HAND"/>
+                </cursor>
+            </Button>
+            
+            <Button text="View Details" onAction="#onViewReport"
+                    style="-fx-background-color: #0984e3; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 20; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(9, 132, 227, 0.4), 6, 0, 0, 2);">
+                <cursor>
+                    <javafx.scene.Cursor fx:constant="HAND"/>
+                </cursor>
+            </Button>
+        </HBox>
+    </bottom>
+
+</BorderPane>

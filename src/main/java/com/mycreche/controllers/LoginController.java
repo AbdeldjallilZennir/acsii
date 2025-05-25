@@ -1,10 +1,16 @@
 package com.mycreche.controllers;
 
-import com.mycreche.models.User;
 import com.mycreche.utils.Database;
-import org.mindrot.jbcrypt.BCrypt;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import org.mindrot.jbcrypt.BCrypt;
+
+import java.io.IOException;
 import java.sql.*;
 
 public class LoginController {
@@ -16,13 +22,11 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Disable login button if fields are empty
         loginButton.setDisable(true);
 
         usernameField.textProperty().addListener((obs, oldVal, newVal) -> validateInput());
         passwordField.textProperty().addListener((obs, oldVal, newVal) -> validateInput());
 
-        // Allow pressing Enter to trigger login
         passwordField.setOnKeyPressed(event -> {
             if (event.getCode().toString().equals("ENTER")) {
                 handleLogin();
@@ -37,48 +41,118 @@ public class LoginController {
         );
     }
 
+    private ResultSet rs;
+
     @FXML
     public void handleLogin() {
-        String username = usernameField.getText().trim();
+        String email = usernameField.getText().trim();
         String password = passwordField.getText().trim();
         errorLabel.setText("");
 
         try (Connection conn = Database.getConnection()) {
-            String query = "SELECT id, username, password, role FROM users WHERE username = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, username);
-            ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                String storedHash = rs.getString("password");
-                System.out.println(rs.getString("password"));
-                System.out.println(rs.getString("username"));
+            // Step 1: Get role from roles table
+            String roleQuery = "SELECT role FROM roles WHERE email = ?";
+            PreparedStatement roleStmt = conn.prepareStatement(roleQuery);
+            roleStmt.setString(1, email);
+            ResultSet roleRs = roleStmt.executeQuery();
 
-                if (BCrypt.checkpw(password, storedHash)) {
-                    User user = new User(
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        "", // Password not needed after auth
-                        rs.getString("role")
-                    );
-                    showDashboard(user.getRole());
-                } else {
-                    errorLabel.setText("Invalid username or password");
-                    passwordField.clear();
-                }
-            } else {
-                errorLabel.setText("Invalid username or password");
+            if (!roleRs.next()) {
+                errorLabel.setText("No account found for this email.");
+                return;
             }
 
-        } catch (Exception e) {
-            errorLabel.setText("Login failed. Please try again.");
+            String role = roleRs.getString("role");
+            String userTable;
+
+            switch (role.toLowerCase()) {
+                case "cuisinier":
+                    userTable = "cuisinier";
+                    break;
+                case "parent":
+                    userTable = "parents";
+                    break;
+                case "educator":
+                    userTable = "teacher";
+                    break;
+                default:
+                    userTable = "users";
+                    break;
+            }
+
+            // Step 2: Get user data from correct table
+            String userQuery = "SELECT * FROM " + userTable + " WHERE email = ?";
+            PreparedStatement userStmt = conn.prepareStatement(userQuery);
+            userStmt.setString(1, email);
+            ResultSet userRs = userStmt.executeQuery();
+            rs = userRs;
+
+            if (!userRs.next()) {
+                errorLabel.setText("Account not found in role-specific table.");
+                return;
+            }
+
+            String hashedPassword = userRs.getString("password");
+
+            if (!BCrypt.checkpw(password, hashedPassword)) {
+                errorLabel.setText("Incorrect password.");
+                passwordField.clear();
+                return;
+            }
+
+            // Step 3: Success — redirect to role-specific dashboard
+
+            showDashboard(role, email);
+
+        } catch (SQLException e) {
             e.printStackTrace();
+            errorLabel.setText("An error occurred. Please try again.");
         }
     }
 
-    private void showDashboard(String role) {
-        errorLabel.setText("Access granted for role: " + role);
-        System.out.println("✅ Access granted for role: " + role);
-        // TODO: Load dashboard based on role
+    private int id;
+
+    private void showDashboard(String role, String email) {
+    try {
+        FXMLLoader loader;
+        switch (role) {
+            case "parent":
+                loader = new FXMLLoader(getClass().getResource("/views/parent_dashboard.fxml"));
+                id = rs.getInt("parent_id");
+                break;
+            case "educator":
+                loader = new FXMLLoader(getClass().getResource("/views/teacher_dashboard.fxml"));
+                id = rs.getInt("id");
+                break;
+            case "cuisinier":
+                loader = new FXMLLoader(getClass().getResource("/views/cuisinier_dashboard.fxml"));
+                id = rs.getInt("id");
+                
+                break;
+            default:
+                loader = new FXMLLoader(getClass().getResource("/views/admin_dashboard.fxml"));
+                break;
+        }
+
+        Scene scene = new Scene(loader.load());
+
+        // Pass data to the controller
+        Object controller = loader.getController();
+        if (controller instanceof DashboardReceiver) {
+            ((DashboardReceiver) controller).setUserData(id, email);
+        }
+
+        // Get current stage and set new scene
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle(role.substring(0, 1).toUpperCase() + role.substring(1) + " Dashboard");
+        stage.show();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        errorLabel.setText("Failed to load dashboard.");
     }
+}
+
+
 }

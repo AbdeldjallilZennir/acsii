@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.mycreche.controllers.TeacherDashboardController"
+            prefWidth="800" prefHeight="600">
+
+    <!-- Top: Welcome + Filters -->
+    <top>
+        <VBox spacing="15" style="-fx-padding: 20 20 10 20;">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label fx:id="welcomeLabel" text="Welcome, Teacher"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2e86c1;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="Group:" />
+                <ComboBox fx:id="groupSelector" onAction="#handleGroupSelection" prefWidth="150"/>
+                <Label text="Date:" />
+                <DatePicker fx:id="attendanceDatePicker" prefWidth="120"/>
+            </HBox>
+            <Separator />
+        </VBox>
+    </top>
+
+    <!-- Center: Table of Students -->
+    <center>
+        <TableView fx:id="childTable" prefHeight="500" prefWidth="750" style="-fx-padding: 0 20 0 20;">
+            <columns>
+                <TableColumn fx:id="nameCol" text="Full Name" prefWidth="200"/>
+                <TableColumn fx:id="ageCol" text="Age" prefWidth="80"/>
+                <TableColumn fx:id="parentCol" text="Parent Name" prefWidth="200"/>
+                <TableColumn fx:id="arrivalCol" text="Arrival Time" prefWidth="120"/>
+                <TableColumn fx:id="departureCol" text="Departure Time" prefWidth="120"/>
+            </columns>
+            <placeholder>
+                <Label text="No students in this group." style="-fx-text-fill: #7f8c8d;" />
+            </placeholder>
+        </TableView>
+    </center>
+
+    <!-- Bottom: Save button -->
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 15 20 20 20;">
+            <Label fx:id="statusLabel" text="Attendance for: Today" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Save Attendance" onAction="#handleSaveAttendance"
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white;" />
+        </HBox>
+    </bottom>
+</BorderPane>

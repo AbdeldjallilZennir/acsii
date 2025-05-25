@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Child {
     private int id;
     private String fullName;
+    private int parentId;
     private LocalDate birthDate;
     private String gender;
     private LocalDate enrollmentDate;
@@ -22,7 +23,12 @@ public class Child {
     private String specialInstructions;
     private boolean photoPermission;
     private String status;
+    private int groupid;
 
+
+    public Child() {
+        // Default constructor: No arguments needed, fields will be set via setters.
+    }
 
 
     // Getters and Setters
@@ -31,6 +37,9 @@ public class Child {
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
+
+    public int getGroupId() { return groupid; }
+    public void setGroupId(int groupid) { this.groupid = groupid; }
 
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
@@ -82,4 +91,13 @@ public class Child {
 
     public boolean isPhotoPermission() { return photoPermission; }
     public void setPhotoPermission(boolean photoPermission) { this.photoPermission = photoPermission; }
+
+    public int getParentId() { return parentId; }
+    public void setParentId(int parentId) { this.parentId = parentId; }
+
+    @Override
+    public String toString() {
+        return fullName; // or however you want the child to appear in the dropdown
+    }
+
 }

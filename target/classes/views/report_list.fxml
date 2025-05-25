@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" fitToHeight="true" 
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mycreche.controllers.ReportListController"
+            style="-fx-background-color: linear-gradient(to bottom, #f8f9fa, #e9ecef);" prefHeight="600">
+    
+    <content>
+        <VBox spacing="25" style="-fx-background-color: transparent;">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
+
+            <!-- Header Section -->
+            <VBox alignment="CENTER" spacing="10" 
+                  style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 12, 0, 0, 3); -fx-padding: 25;">
+                
+                <Label fx:id="titleLabel"
+                       text="Daily Reports"
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                    <font>
+                        <Font size="28"/>
+                    </font>
+                </Label>
+                
+                <Label text="Track daily activities and child development progress" 
+                       style="-fx-font-size: 14px; -fx-text-fill: #6c757d; -fx-font-style: italic;"/>
+            </VBox>
+
+            <!-- Table Section -->
+            <VBox spacing="15" 
+                  style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 12, 0, 0, 3); -fx-padding: 25;" prefHeight="400">
+                
+                <Label text="📋 Daily Activity Overview" 
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                
+                <ScrollPane fitToWidth="true" prefHeight="400" 
+                           style="-fx-background-color: transparent; -fx-background: transparent;"
+                           hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
+                    
+                    <TableView fx:id="reportTable" 
+                              style="-fx-background-color: #fafafa; -fx-background-radius: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-border-width: 1;">
+                        <columns>
+                            <TableColumn fx:id="colDate" text="📅 Date" prefWidth="100"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colMood" text="😊 Mood" prefWidth="90"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colMeals" text="🍪 Meal" prefWidth="100"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colSleep" text="😴 Sleep" prefWidth="100"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colDiaper" text="👶 Diapers" prefWidth="90"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colPotty" text="🚽 Potty" prefWidth="80"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colActivities" text="🎨 Activities" prefWidth="150"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colMed" text="💊 Med" prefWidth="70"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colIncident" text="⚠️ Incid." prefWidth="80"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colHealth" text="❤️ Healthy" prefWidth="90"
+                                        style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="colSeen" text="👁️ Seen" prefWidth="80"
+                                        style="-fx-alignment: CENTER;"/>
+                        </columns>
+                    </TableView>
+                </ScrollPane>
+            </VBox>
+
+            <!-- Details Section -->
+            <VBox spacing="15" 
+                  style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 12, 0, 0, 3); -fx-padding: 25;">
+                
+                <TitledPane text="📝 Detailed Information" expanded="false"
+                           style="-fx-background-color: #f8f9fa; -fx-background-radius: 10; -fx-border-color: #dee2e6; -fx-border-radius: 10;">
+                    
+                    <ScrollPane fitToWidth="true" prefHeight="300"
+                               style="-fx-background-color: transparent; -fx-background: transparent;">
+                        
+                        <VBox spacing="20" style="-fx-padding: 20;">
+                            <!-- Learning Highlights -->
+                            <VBox spacing="8">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="🌟" style="-fx-font-size: 16px;"/>
+                                    <Label text="Learning Highlights:" 
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #2c3e50;"/>
+                                </HBox>
+                                <TextArea fx:id="txtLearning" editable="false" wrapText="true" prefRowCount="3"
+                                         style="-fx-background-color: #e3f2fd; -fx-background-radius: 8; -fx-border-color: #90caf9; -fx-border-radius: 8; -fx-padding: 12; -fx-font-size: 13px;"/>
+                            </VBox>
+                            
+                            <!-- General Notes -->
+                            <VBox spacing="8">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="📝" style="-fx-font-size: 16px;"/>
+                                    <Label text="General Notes:" 
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #2c3e50;"/>
+                                </HBox>
+                                <TextArea fx:id="txtGeneral" editable="false" wrapText="true" prefRowCount="3"
+                                         style="-fx-background-color: #e8f5e8; -fx-background-radius: 8; -fx-border-color: #a5d6a7; -fx-border-radius: 8; -fx-padding: 12; -fx-font-size: 13px;"/>
+                            </VBox>
+                            
+                            <!-- Reminders / Requests -->
+                            <VBox spacing="8">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="🔔" style="-fx-font-size: 16px;"/>
+                                    <Label text="Reminders / Requests:" 
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #2c3e50;"/>
+                                </HBox>
+                                <TextArea fx:id="txtReminders" editable="false" wrapText="true" prefRowCount="3"
+                                         style="-fx-background-color: #fff3e0; -fx-background-radius: 8; -fx-border-color: #ffcc80; -fx-border-radius: 8; -fx-padding: 12; -fx-font-size: 13px;"/>
+                            </VBox>
+                            
+                            <!-- Health Notes -->
+                            <VBox spacing="8">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="❤️" style="-fx-font-size: 16px;"/>
+                                    <Label text="Health Notes:" 
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #2c3e50;"/>
+                                </HBox>
+                                <TextArea fx:id="txtHealth" editable="false" wrapText="true" prefRowCount="3"
+                                         style="-fx-background-color: #ffebee; -fx-background-radius: 8; -fx-border-color: #ef9a9a; -fx-border-radius: 8; -fx-padding: 12; -fx-font-size: 13px;"/>
+                            </VBox>
+                            
+                        </VBox>
+                    </ScrollPane>
+                </TitledPane>
+            </VBox>
+            
+            <!-- Footer Info -->
+            <VBox alignment="CENTER" spacing="10">
+                <HBox spacing="15" alignment="CENTER">
+                    <Label text="💡 Tip: Click on any row to view detailed information" 
+                           style="-fx-font-size: 12px; -fx-text-fill: #6c757d; -fx-font-style: italic;"/>
+                </HBox>
+                <Label text="Reports are automatically saved and synchronized" 
+                       style="-fx-font-size: 11px; -fx-text-fill: #adb5bd;"/>
+            </VBox>
+            
+            <!-- Extra spacing for better scrolling -->
+            <Region prefHeight="30"/>
+            
+        </VBox>
+    </content>
+</ScrollPane>

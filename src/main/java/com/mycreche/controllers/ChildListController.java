@@ -1,6 +1,7 @@
 package com.mycreche.controllers;
 
 import com.mycreche.models.Child;
+import com.mycreche.models.Group;
 import com.mycreche.utils.Database;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
@@ -22,6 +23,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChildListController {
     @FXML private TableView<Child> childTable;
@@ -128,22 +131,44 @@ public class ChildListController {
     }
 
 
-    @FXML
+
+@FXML
 public void handleAddChild() {
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/child_form.fxml"));
         Scene scene = new Scene(loader.load());
 
+        // Load controller
         ChildController controller = loader.getController();
-        controller.prepareForNewAddChild(true);  // This method should make the form fully editable and hide modify/save buttons
+        controller.prepareForNewAddChild(true);
 
+        // Load all groups from DB
+        List<Group> allGroups = new ArrayList<>();
+        try (Connection conn = Database.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM `group`")) {
+
+            while (rs.next()) {
+                Group group = new Group(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getInt("teacher_id")
+                );
+                allGroups.add(group);
+            }
+        }
+
+        // Pass groups to controller
+        controller.setAvailableGroups(allGroups);
+
+        // Show form
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Add New Child");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
 
-        // Optional: Refresh the list after adding
+        // Refresh list after adding
         allChildren.clear();
         loadChildrenFromDB();
         updateTotal();
@@ -151,7 +176,7 @@ public void handleAddChild() {
     } catch (Exception e) {
         e.printStackTrace();
     }
-    }
+}
 
 
 

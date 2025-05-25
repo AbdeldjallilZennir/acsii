@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.mycreche.controllers.AddAccountController"
+            style="-fx-background-color: #f8f9fa;">
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" 
+                   style="-fx-background-color: transparent; -fx-background: transparent;"
+                   hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+            
+            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);" maxWidth="500">
+                <padding>
+                    <Insets top="30" right="40" bottom="30" left="40"/>
+                </padding>
+                
+                <Label text="Create New Account" 
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-alignment: center;" />
+
+                <!-- Role Selection -->
+                <VBox spacing="8">
+                    <Label text="Select Role" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #34495e;" />
+                    <ComboBox fx:id="roleComboBox" promptText="Choose role" 
+                             style="-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;"
+                             prefWidth="420"/>
+                </VBox>
+
+                <!-- Common Fields -->
+                <VBox spacing="16" fx:id="commonFields">
+
+                    <!-- First Name -->
+                    <VBox spacing="6">
+                        <Label text="First Name" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #34495e;" />
+                        <TextField fx:id="firstNameField" 
+                                  style="-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;"
+                                  prefWidth="420"/>
+                    </VBox>
+
+                    <!-- Last Name -->
+                    <VBox spacing="6">
+                        <Label text="Last Name" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #34495e;" />
+                        <TextField fx:id="lastNameField" 
+                                  style="-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;"
+                                  prefWidth="420"/>
+                    </VBox>
+
+                    <!-- Email -->
+                    <VBox spacing="6">
+    <Label text="Email" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #34495e;" />
+    <TextField fx:id="emailField" 
+              style="-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;"
+              prefWidth="420"/>
+    <Label fx:id="emailErrorLabel" text="Invalid email format" style="-fx-text-fill: red;" visible="false" managed="false"/>
+</VBox>
+
+                    <!-- Phone -->
+                    <VBox spacing="6">
+                        <Label text="Phone Number" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #34495e;" />
+                        <TextField fx:id="phoneField" 
+                                  style="-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;"
+                                  prefWidth="420"/>
+                    </VBox>
+
+                    <!-- Password -->
+                    <VBox spacing="6">
+    <Label text="Password" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #34495e;" />
+    <PasswordField fx:id="passwordField" 
+                  style="-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;"
+                  prefWidth="420"/>
+    <Label fx:id="passwordErrorLabel" text="Password must contain at least one letter and one number" 
+           style="-fx-text-fill: red;" visible="false" managed="false" />
+</VBox>
+
+                </VBox>
+
+                <!-- Parent Only Fields -->
+                <VBox spacing="16" fx:id="parentFields" visible="false" managed="false"
+                      style="-fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-padding: 20; -fx-border-color: #e9ecef; -fx-border-radius: 8;">
+
+                    <Label text="Parent Information" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #495057;" />
+
+                    <VBox spacing="6">
+                        <Label text="Address" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #34495e;" />
+                        <TextField fx:id="addressField" 
+                                  style="-fx-background-color: white; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;"
+                                  prefWidth="380"/>
+                    </VBox>
+
+                    <VBox spacing="6">
+                        <Label text="Emergency Contact Name" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #34495e;" />
+                        <TextField fx:id="emergencyNameField" 
+                                  style="-fx-background-color: white; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;"
+                                  prefWidth="380"/>
+                    </VBox>
+
+                    <VBox spacing="6">
+                        <Label text="Emergency Contact Phone" style="-fx-font-size: 14px; -fx-font-weight: 600; -fx-text-fill: #34495e;" />
+                        <TextField fx:id="emergencyPhoneField" 
+                                  style="-fx-background-color: white; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12; -fx-font-size: 14px;"
+                                  prefWidth="380"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Submit Button -->
+                <Button fx:id="submitButton" text="Create Account" onAction="#handleCreateAccount"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 15 30; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.3), 8, 0, 0, 2);"
+                        prefWidth="420">
+                    <cursor>
+                        <javafx.scene.Cursor fx:constant="HAND"/>
+                    </cursor>
+                </Button>
+
+                <!-- Message Label -->
+                <Label fx:id="messageLabel" textFill="#e74c3c" 
+                       style="-fx-font-size: 14px; -fx-font-weight: 500; -fx-alignment: center; -fx-padding: 10;"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</BorderPane>
