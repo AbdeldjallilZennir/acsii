@@ -94,7 +94,7 @@ public class ChildController {
                 full_name = ?, birth_date = ?, gender = ?, enrollment_date = ?, group_name = ?, group_id = ?,
                 allergies = ?, medical_notes = ?, diet_restrictions = ?, primary_contact_name = ?,
                 relationship = ?, phone_number = ?, email = ?, address = ?, emergency_contact = ?,
-                authorized_pickup = ?, special_instructions = ?, photo_permission = ?,parentid = ?
+                authorized_pickup = ?, special_instructions = ?, photo_permission = ?
             WHERE id = ?
         """;
 
@@ -126,9 +126,8 @@ public class ChildController {
 
             stmt.setString(17, instructionsArea.getText());
             stmt.setBoolean(18, photoPermissionCheck.isSelected());
-            stmt.setInt(19, getParentIdByEmail(emailField.getText()));
 
-            stmt.setInt(20, childId);
+            stmt.setInt(19, childId);
             
             int updated = stmt.executeUpdate();
             statusLabel.setText(updated > 0 ? "Changes saved successfully." : "No changes were made.");

@@ -222,15 +222,15 @@ public class ChildReportController implements Initializable, DashboardReceiver {
                 activity_sensory, activity_free_play, activity_group,
                 learning_highlights, general_notes, reminders,
                 medication_given, incident_occurred, all_healthy, health_notes,
-                created_by, created_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+                 created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
         """;
 
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             setReportParameters(stmt);
-            stmt.setInt(25, getCurrentUserId()); // Assuming you have a method to get current user
+            stmt.setInt(24, getCurrentUserId()); 
             
             int affected = stmt.executeUpdate();
             

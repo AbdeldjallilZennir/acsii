@@ -101,7 +101,7 @@ private void onChildSelected() {
     StringBuilder info = new StringBuilder();
     info.append("Name: ").append(selectedChild.getFullName()).append("\n");
     info.append("Birth Date: ").append(selectedChild.getBirthDate()).append("\n");
-    info.append("Group: ").append(selectedChild.getGroupName()).append("\n");
+    info.append("Group: ").append(selectedChild.getGroupNameById(selectedChild.getGroupId())).append("\n");
     info.append("Allergies: ").append(selectedChild.getAllergies()).append("\n");
 
     childInfoArea.setText(info.toString());
@@ -147,24 +147,28 @@ private void onViewReport() {
     }
 
     try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/report_list.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                "/views/report_list.fxml"));          // same file name – contents updated below
         Parent root = loader.load();
 
         ReportListController controller = loader.getController();
+        controller.setChild(selectedChild);           // NEW – to display child name
         controller.setReports(allReports.stream()
-            .filter(r -> r.getChildId() == selectedChild.getId())
-            .toList());
+                .filter(r -> r.getChildId() == selectedChild.getId())
+                .toList());
 
         Stage stage = new Stage();
         stage.setTitle("Daily Reports for " + selectedChild.getFullName());
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(true);
         stage.show();
 
     } catch (IOException e) {
         e.printStackTrace();
     }
 }
+
 
 private void loadChildrenFromDatabase() {
     children.clear();

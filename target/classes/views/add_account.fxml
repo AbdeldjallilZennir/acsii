@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.mycreche.controllers.AddAccountController"
-            style="-fx-background-color: #f8f9fa;">
+            style="-fx-background-color: #f8f9fa;" prefHeight="500">
     <center>
         <ScrollPane fitToWidth="true" fitToHeight="true" 
                    style="-fx-background-color: transparent; -fx-background: transparent;"

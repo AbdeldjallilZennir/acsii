@@ -1,6 +1,12 @@
 package com.mycreche.models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+
+import com.mycreche.utils.Database;
 
 public class Child {
     private int id;
@@ -100,4 +106,24 @@ public class Child {
         return fullName; // or however you want the child to appear in the dropdown
     }
 
+    public String getGroupNameById(int groupId) {
+        String groupName = null;
+        String query = "SELECT name FROM `group` WHERE id = ?";
+        
+        try (Connection connection = Database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, groupId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                groupName = resultSet.getString("name");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error fetching group name: " + e.getMessage());
+        }
+
+        return groupName != null ? groupName : "Unknown Group";
+    }
 }
